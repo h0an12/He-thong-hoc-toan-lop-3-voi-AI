@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "topic": "numbers",
+    "question": "345 + 267 = ?",
+    "options": [
+      "612",
+      "602",
+      "622",
+      "592"
+    ],
+    "correct_answer": "612",
+    "explanation": "Cộng từ phải sang trái: 5+7=12 (viết 2 nhớ 1), 4+6+1=11 (viết 1 nhớ 1), 3+2+1=6. Kết quả: 612",
+    "difficulty": "easy",
+    "points": 10,
+    "created_at": "2025-10-14T12:41:30.939566"
+  },
+  {
+    "id": 2,
+    "topic": "numbers",
+    "question": "48 : 6 = ?",
+    "options": [
+      "8",
+      "6",
+      "7",
+      "9"
+    ],
+    "correct_answer": "8",
+    "explanation": "6 × 8 = 48, nên 48 : 6 = 8",
+    "difficulty": "easy",
+    "points": 10,
+    "created_at": "2025-10-14T12:41:30.939572"
+  },
+  {
+    "id": 3,
+    "topic": "word_problems",
+    "question": "Lan có 15 cái kẹo, Hoa có ít hơn Lan 4 cái kẹo. Hỏi Hoa có bao nhiêu cái kẹo?",
+    "options": [
+      "11",
+      "12",
+      "13",
+      "14"
+    ],
+    "correct_answer": "11",
+    "explanation": "Hoa có số kẹo là: 15 - 4 = 11 (cái kẹo)",
+    "difficulty": "medium",
+    "points": 15,
+    "created_at": "2025-10-14T12:41:30.939575"
+  },
+  {
+    "id": 4,
+    "topic": "geometry",
+    "question": "Hình vuông có bao nhiêu cạnh bằng nhau?",
+    "options": [
+      "4 cạnh",
+      "3 cạnh",
+      "2 cạnh",
+      "1 cạnh"
+    ],
+    "correct_answer": "4 cạnh",
+    "explanation": "Hình vuông có 4 cạnh bằng nhau",
+    "difficulty": "easy",
+    "points": 10,
+    "created_at": "2025-10-14T12:41:30.939577"
+  },
+  {
+    "id": 5,
+    "topic": "measurement",
+    "question": "2 giờ = ... phút?",
+    "options": [
+      "120",
+      "130",
+      "140",
+      "150"
+    ],
+    "correct_answer": "120",
+    "explanation": "1 giờ = 60 phút, vậy 2 giờ = 2 × 60 = 120 phút",
+    "difficulty": "easy",
+    "points": 10,
+    "created_at": "2025-10-14T12:41:30.939579"
+  }
+]

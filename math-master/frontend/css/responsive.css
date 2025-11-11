@@ -1,0 +1,350 @@
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .container {
+        max-width: 100%;
+        padding: 0 15px;
+    }
+    
+    .progress-content {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .header .container {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+    
+    .nav {
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .nav-link {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
+    }
+    
+    .user-menu {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .action-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .ai-features {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .curriculum-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .games-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .progress-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .exercise-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .welcome-features {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .feature {
+        justify-content: center;
+    }
+    
+    .leaderboard-header {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+    
+    .leaderboard-filters {
+        justify-content: center;
+    }
+    
+    .exercise-header {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+    
+    .exercise-controls {
+        flex-direction: column;
+    }
+    
+    .page-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .welcome-banner h1 {
+        font-size: 2rem;
+    }
+    
+    .welcome-banner p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 10px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .ai-features {
+        grid-template-columns: 1fr;
+    }
+    
+    .progress-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .stat-card {
+        padding: 1.5rem;
+    }
+    
+    .stat-card span {
+        font-size: 1.5rem;
+    }
+    
+    .action-card {
+        padding: 1.5rem;
+    }
+    
+    .topic-card {
+        padding: 1.5rem;
+    }
+    
+    .game-card {
+        padding: 1.5rem;
+    }
+    
+    .exercise-item {
+        padding: 1rem;
+    }
+    
+    .modal-content {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+    
+    .auth-tabs {
+        flex-direction: column;
+        border-bottom: none;
+        border-right: 2px solid #eee;
+        width: fit-content;
+        margin: 1rem auto;
+    }
+    
+    .tab-btn {
+        text-align: left;
+        padding: 0.5rem 1rem;
+    }
+    
+    .tab-btn.active {
+        border-bottom: none;
+        border-right: 2px solid var(--primary-color);
+    }
+    
+    .welcome-banner {
+        padding: 2rem 1rem;
+    }
+    
+    .page-header {
+        padding: 1.5rem 1rem;
+    }
+    
+    .curriculum-section,
+    .games-section,
+    .progress-overview,
+    .leaderboard-container {
+        padding: 1.5rem 1rem;
+    }
+    
+    .chart-container {
+        padding: 1.5rem 1rem;
+    }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .action-card:hover,
+    .topic-card:hover,
+    .game-card:hover,
+    .stat-card:hover {
+        transform: none;
+    }
+    
+    .option-btn:hover {
+        border-color: #ddd;
+        background: white;
+    }
+    
+    .option-btn.selected {
+        background: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+    }
+    
+    .nav-link:hover {
+        background: transparent;
+        color: var(--dark-color);
+    }
+    
+    .nav-link.active {
+        background: var(--primary-color);
+        color: white;
+    }
+}
+
+/* High DPI Screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .logo i,
+    .stat-card i,
+    .action-card i,
+    .ai-feature i,
+    .topic-card i {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .header,
+    .ai-chat-widget,
+    .ai-chat-button,
+    .nav,
+    .user-menu,
+    .quick-actions,
+    .ai-feature-showcase {
+        display: none !important;
+    }
+    
+    .main-content {
+        padding: 0;
+    }
+    
+    .tab-pane {
+        display: block !important;
+    }
+    
+    .container {
+        max-width: none;
+        padding: 0;
+    }
+    
+    .welcome-banner,
+    .stats-grid,
+    .progress-overview,
+    .progress-content {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+    
+    body {
+        background: white;
+        color: black;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .ai-chat-widget,
+    .stat-card,
+    .action-card,
+    .topic-card,
+    .game-card {
+        transition: none;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --dark-color: #f8f9fa;
+        --light-color: #343a40;
+    }
+    
+    body {
+        background: linear-gradient(135deg, #2c3e50, #34495e);
+    }
+    
+    .modal-content,
+    .header,
+    .stat-card,
+    .quick-actions,
+    .ai-feature-showcase,
+    .page-header,
+    .curriculum-section,
+    .exercise-section,
+    .games-section,
+    .progress-overview,
+    .chart-container,
+    .ai-analysis-section,
+    .leaderboard-container {
+        background: #2c3e50;
+        color: var(--dark-color);
+    }
+    
+    .action-card,
+    .topic-card,
+    .game-card,
+    .exercise-item {
+        background: #34495e;
+        color: var(--dark-color);
+    }
+    
+    .input-group input,
+    .input-group select {
+        background: #2c3e50;
+        border-color: #4a5f7a;
+        color: var(--dark-color);
+    }
+    
+    .input-group input:focus,
+    .input-group select:focus {
+        border-color: var(--primary-color);
+    }
+    
+    .leaderboard-table th {
+        background: #34495e;
+    }
+    
+    .progress-bar {
+        background: #4a5f7a;
+    }
+}

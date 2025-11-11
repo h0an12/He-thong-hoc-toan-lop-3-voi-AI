@@ -1,0 +1,67 @@
+[
+  {
+    "id": "numbers",
+    "name": "Số học và Phép tính",
+    "description": "Học về số có 4-5 chữ số, cộng trừ nhân chia trong phạm vi 100000",
+    "icon": "fa-calculator",
+    "exercise_count": 45,
+    "difficulty_levels": [
+      "easy",
+      "medium",
+      "hard"
+    ],
+    "learning_objectives": [
+      "Nhận biết và đọc số có 4-5 chữ số",
+      "Thực hiện các phép tính cộng, trừ, nhân, chia",
+      "Làm tròn số đến hàng chục, trăm, nghìn"
+    ]
+  },
+  {
+    "id": "word_problems",
+    "name": "Giải toán có lời văn",
+    "description": "Bài toán hơn kém, gấp giảm số lần, rút về đơn vị, hai bước tính",
+    "icon": "fa-file-alt",
+    "exercise_count": 35,
+    "difficulty_levels": [
+      "medium",
+      "hard"
+    ],
+    "learning_objectives": [
+      "Phân tích và giải bài toán có lời văn",
+      "Nhận dạng các dạng bài toán: hơn kém, gấp giảm",
+      "Giải bài toán nhiều bước tính"
+    ]
+  },
+  {
+    "id": "geometry",
+    "name": "Hình học",
+    "description": "Nhận biết điểm, đoạn thẳng, góc, hình vuông, chữ nhật, tam giác, tứ giác",
+    "icon": "fa-shapes",
+    "exercise_count": 25,
+    "difficulty_levels": [
+      "easy",
+      "medium"
+    ],
+    "learning_objectives": [
+      "Nhận biết các hình học cơ bản",
+      "Tính chu vi hình chữ nhật, hình vuông",
+      "Tính diện tích hình chữ nhật, hình vuông"
+    ]
+  },
+  {
+    "id": "measurement",
+    "name": "Đại lượng và Đo lường",
+    "description": "Độ dài, diện tích, thời gian, tiền Việt Nam",
+    "icon": "fa-ruler-combined",
+    "exercise_count": 30,
+    "difficulty_levels": [
+      "easy",
+      "medium"
+    ],
+    "learning_objectives": [
+      "Đổi đơn vị đo độ dài: mm, cm, m, km",
+      "Tính toán với đơn vị diện tích: cm², m²",
+      "Xem giờ và tính toán thời gian"
+    ]
+  }
+]

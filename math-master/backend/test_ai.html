@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test AI Connection</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .test-section { margin: 20px 0; padding: 20px; border: 1px solid #ddd; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+        .success { color: green; }
+        .error { color: red; }
+        .info { color: blue; }
+        .result { margin: 10px 0; padding: 10px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test Kết Nối AI - Math Master</h1>
+    
+    <div class="test-section">
+        <h3>1. Kiểm tra trạng thái AI</h3>
+        <button onclick="testAIStatus()">Kiểm tra AI Status</button>
+        <div id="statusResult" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>2. Test tạo bài tập AI</h3>
+        <div>
+            <label>Trình độ: </label>
+            <select id="studentLevel">
+                <option value="dễ">Dễ</option>
+                <option value="trung bình" selected>Trung bình</option>
+                <option value="khó">Khó</option>
+            </select>
+            
+            <label>Chủ đề yếu: </label>
+            <select id="weakTopic">
+                <option value="numbers" selected>Số học</option>
+                <option value="geometry">Hình học</option>
+                <option value="word_problems">Toán có lời văn</option>
+            </select>
+            
+            <button onclick="testAIExercise()">Tạo bài tập AI</button>
+        </div>
+        <div id="exerciseResult" class="result"></div>
+    </div>
+
+    <script>
+        async function testAIStatus() {
+            try {
+                const response = await fetch('/api/ai/status');
+                const data = await response.json();
+                
+                const resultDiv = document.getElementById('statusResult');
+                if (data.success) {
+                    resultDiv.innerHTML = `
+                        <div class="success">
+                            <p><strong>✅ Kết nối AI:</strong> ${data.ai_connected ? 'THÀNH CÔNG' : 'THẤT BẠI'}</p>
+                            <p><strong>🤖 Gemini Ready:</strong> ${data.gemini_ready ? '✅' : '❌'}</p>
+                            <p><strong>🔧 Service:</strong> ${data.service}</p>
+                            <p><strong>🕐 Timestamp:</strong> ${data.timestamp}</p>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `<div class="error">❌ Lỗi: ${data.error}</div>`;
+                }
+            } catch (error) {
+                document.getElementById('statusResult').innerHTML = `<div class="error">❌ Lỗi kết nối: ${error}</div>`;
+            }
+        }
+
+        async function testAIExercise() {
+            try {
+                const studentLevel = document.getElementById('studentLevel').value;
+                const weakTopic = document.getElementById('weakTopic').value;
+
+                const exerciseData = {
+                    student_level: studentLevel,
+                    weak_topics: [weakTopic],
+                    progress_data: {
+                        completed_exercises: 5,
+                        total_score: 45
+                    },
+                    topic: "numbers"
+                };
+
+                const response = await fetch('/api/ai/adaptive-exercise', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(exerciseData)
+                });
+
+                const data = await response.json();
+                
+                const resultDiv = document.getElementById('exerciseResult');
+                if (data.success && data.exercise) {
+                    resultDiv.innerHTML = `
+                        <div class="success">
+                            <p><strong>✅ Tạo bài tập AI thành công!</strong></p>
+                            <p><strong>🧠 Câu hỏi:</strong> ${data.exercise.question}</p>
+                            <p><strong>✅ Đáp án đúng:</strong> ${data.exercise.correct_answer}</p>
+                            <p><strong>📝 Lựa chọn:</strong> ${data.exercise.options.join(', ')}</p>
+                            <p><strong>💡 Giải thích:</strong> ${data.exercise.explanation}</p>
+                            <p><strong>🎯 Độ khó:</strong> ${data.exercise.difficulty}</p>
+                            <p><strong>⭐ Điểm:</strong> ${data.exercise.points}</p>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `<div class="error">❌ Lỗi: ${data.error || 'Không rõ lỗi'}</div>`;
+                }
+            } catch (error) {
+                document.getElementById('exerciseResult').innerHTML = `<div class="error">❌ Lỗi: ${error}</div>`;
+            }
+        }
+
+        // Tự động kiểm tra khi trang load
+        window.onload = testAIStatus;
+    </script>
+</body>
+</html>

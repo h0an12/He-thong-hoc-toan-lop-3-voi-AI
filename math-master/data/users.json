@@ -1,0 +1,26 @@
+{
+  "admin": {
+    "username": "admin",
+    "password": "admin123",
+    "user_type": "teacher",
+    "created_at": "2025-10-14T12:41:30.938754",
+    "last_login": null,
+    "progress": {}
+  },
+  "demo": {
+    "username": "demo",
+    "password": "demo123",
+    "user_type": "student",
+    "created_at": "2025-10-14T12:41:30.938777",
+    "last_login": "2025-11-12T04:46:39.494140",
+    "progress": {}
+  },
+  "hoan": {
+    "username": "hoan",
+    "password": "12345678",
+    "user_type": "student",
+    "created_at": "2025-10-14T12:42:00.165255",
+    "last_login": "2025-10-15T08:12:06.556013",
+    "progress": {}
+  }
+}

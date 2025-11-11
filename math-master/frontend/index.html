@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Master - Học Toán Lớp 3</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/ai.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="auth-container">
+                <div class="auth-header">
+                    <h2><i class="fas fa-calculator"></i> Math Master</h2>
+                    <p>Hệ thống học Toán lớp 3 toàn diện</p>
+                </div>
+                
+                <div class="auth-tabs">
+                    <button class="tab-btn active" onclick="openTab('loginTab')">Đăng nhập</button>
+                    <button class="tab-btn" onclick="openTab('registerTab')">Đăng ký</button>
+                </div>
+
+                <div id="loginTab" class="tab-content active">
+                    <form id="loginForm">
+                        <div class="input-group">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="loginUsername" placeholder="Tên đăng nhập" required>
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="loginPassword" placeholder="Mật khẩu" required>
+                        </div>
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-sign-in-alt"></i> Đăng nhập
+                        </button>
+                    </form>
+                </div>
+
+                <div id="registerTab" class="tab-content">
+                    <form id="registerForm">
+                        <div class="input-group">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="regUsername" placeholder="Tên đăng nhập" required>
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="regPassword" placeholder="Mật khẩu" required>
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="regConfirmPassword" placeholder="Xác nhận mật khẩu" required>
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-user-tag"></i>
+                            <select id="regUserType">
+                                <option value="student">Học sinh</option>
+                                <option value="teacher">Giáo viên</option>
+                                <option value="parent">Phụ huynh</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-user-plus"></i> Đăng ký
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="app" class="hidden">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <div class="logo">
+                    <i class="fas fa-calculator"></i>
+                    <span>Math Master</span>
+                </div>
+                <nav class="nav">
+                    <a href="#" class="nav-link active" data-tab="dashboard">
+                        <i class="fas fa-home"></i> Trang chủ
+                    </a>
+                    <a href="#" class="nav-link" data-tab="learn">
+                        <i class="fas fa-graduation-cap"></i> Học tập
+                    </a>
+                    <a href="#" class="nav-link" data-tab="games">
+                        <i class="fas fa-gamepad"></i> Trò chơi
+                    </a>
+                    <a href="#" class="nav-link" data-tab="progress">
+                        <i class="fas fa-chart-line"></i> Tiến độ
+                    </a>
+                    <a href="#" class="nav-link" data-tab="leaderboard">
+                        <i class="fas fa-trophy"></i> Bảng xếp hạng
+                    </a>
+                    <a href="#" class="nav-link" data-tab="mocktest">
+                        <i class="fas fa-file-alt"></i> Thi thử
+                    </a>
+                </nav>
+                <div class="user-menu">
+                    <span id="usernameDisplay"></span>
+                    <button id="logoutBtn" class="btn-secondary">
+                        <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Tab -->
+            <div id="dashboard" class="tab-pane active">
+                <div class="container">
+                    <div class="welcome-banner">
+                        <h1>Chào mừng đến với Math Master!</h1>
+                        <p>Học Toán lớp 3 thật vui và hiệu quả cùng AI Tutor</p>
+                        <div class="welcome-features">
+                            <div class="feature">
+                                <i class="fas fa-robot"></i>
+                                <span>AI Tutor Thông minh</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-gamepad"></i>
+                                <span>Trò chơi Giáo dục</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-chart-line"></i>
+                                <span>Theo dõi Tiến độ</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-file-alt"></i>
+                                <span>Thi thử Thông minh</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <i class="fas fa-book-open"></i>
+                            <h3>Bài tập đã làm</h3>
+                            <span id="totalExercises">0</span>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-trophy"></i>
+                            <h3>Điểm số</h3>
+                            <span id="totalScore">0</span>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-gamepad"></i>
+                            <h3>Trò chơi đã chơi</h3>
+                            <span id="gamesPlayed">0</span>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-file-alt"></i>
+                            <h3>Bài thi đã làm</h3>
+                            <span id="mockTestsTaken">0</span>
+                        </div>
+                    </div>
+
+                    <div class="quick-actions">
+                        <h2>Bắt đầu ngay</h2>
+                        <div class="action-grid">
+                            <div class="action-card" data-tab="learn">
+                                <i class="fas fa-graduation-cap"></i>
+                                <h4>Học tập</h4>
+                                <p>Làm bài tập theo chủ đề</p>
+                                <div class="action-badge">📚 50+ bài tập</div>
+                            </div>
+                            <div class="action-card" data-tab="games">
+                                <i class="fas fa-gamepad"></i>
+                                <h4>Trò chơi</h4>
+                                <p>Học Toán qua trò chơi</p>
+                                <div class="action-badge">🎮 4 trò chơi</div>
+                            </div>
+                            <div class="action-card" data-tab="mocktest">
+                                <i class="fas fa-file-alt"></i>
+                                <h4>Thi thử</h4>
+                                <p>Kiểm tra kiến thức</p>
+                                <div class="action-badge">📝 AI tạo đề</div>
+                            </div>
+                            <div class="action-card" data-tab="progress">
+                                <i class="fas fa-chart-bar"></i>
+                                <h4>Tiến độ</h4>
+                                <p>Theo dõi kết quả học tập</p>
+                                <div class="action-badge">📊 Phân tích AI</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ai-feature-showcase">
+                        <h2>🤖 AI Tutor - Trợ giảng Thông minh</h2>
+                        <div class="ai-features">
+                            <div class="ai-feature">
+                                <i class="fas fa-comments"></i>
+                                <h4>Chat Real-time</h4>
+                                <p>Hỏi đáp mọi lúc về Toán học</p>
+                            </div>
+                            <div class="ai-feature">
+                                <i class="fas fa-lightbulb"></i>
+                                <h4>Giải thích Thông minh</h4>
+                                <p>Hiểu sâu từng bài toán</p>
+                            </div>
+                            <div class="ai-feature">
+                                <i class="fas fa-magic"></i>
+                                <h4>Bài tập Cá nhân hóa</h4>
+                                <p>Phù hợp trình độ của bạn</p>
+                            </div>
+                            <div class="ai-feature">
+                                <i class="fas fa-file-alt"></i>
+                                <h4>Đề thi Thông minh</h4>
+                                <p>Tạo đề thi theo năng lực</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Learn Tab -->
+            <div id="learn" class="tab-pane">
+                <div class="container">
+                    <div class="page-header">
+                        <h1><i class="fas fa-graduation-cap"></i> Học tập Toán lớp 3</h1>
+                        <p>Chọn chủ đề và bắt đầu luyện tập ngay!</p>
+                    </div>
+                    
+                    <div class="curriculum-section">
+                        <h2>Chương trình học</h2>
+                        <div class="curriculum-grid" id="curriculumContainer">
+                            <!-- Curriculum items will be loaded here -->
+                        </div>
+                    </div>
+                    
+                    <div class="exercise-section hidden" id="exerciseSection">
+                        <div class="exercise-header">
+                            <button id="backToTopics" class="btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Quay lại chủ đề
+                            </button>
+                            <div class="exercise-info">
+                                <h3 id="exerciseTopic">Đang tải...</h3>
+                                <p id="exerciseDescription">Chọn bài tập để bắt đầu</p>
+                            </div>
+                        </div>
+                        
+                        <div class="exercise-controls">
+                            <button id="generateAIExercise" class="btn-primary">
+                                <i class="fas fa-robot"></i> Bài tập AI
+                            </button>
+                            <button id="shuffleExercises" class="btn-secondary">
+                                <i class="fas fa-random"></i> Trộn bài
+                            </button>
+                        </div>
+                        
+                        <div class="exercise-container" id="exerciseContainer">
+                            <!-- Exercises will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Games Tab -->
+            <div id="games" class="tab-pane">
+                <div class="container">
+                    <div class="page-header">
+                        <h1><i class="fas fa-gamepad"></i> Trò chơi Toán học</h1>
+                        <p>Học mà chơi - Chơi mà học với 4 trò chơi thú vị</p>
+                    </div>
+                    
+                    <div class="games-section">
+                        <div class="games-grid" id="gamesGrid">
+                            <div class="game-card" data-game="number_race">
+                                <div class="game-image-container">
+                                    <div class="game-main-image">🏎️</div>
+                                </div>
+                                <div class="game-content">
+                                    <h4>🏎️ Đua Toán học</h4>
+                                    <p>Trả lời nhanh trong thời gian giới hạn</p>
+                                    <div class="game-meta">
+                                        <span class="game-difficulty easy">Dễ</span>
+                                        <span class="game-time">2 phút</span>
+                                    </div>
+                                    <div class="game-stats">
+                                        <small><i class="fas fa-question-circle"></i> 10 câu hỏi • ⚡ Tốc độ cao</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="game-card" data-game="math_puzzle">
+                                <div class="game-image-container">
+                                    <div class="game-main-image">🧩</div>
+                                </div>
+                                <div class="game-content">
+                                    <h4>🧩 Ghép Số Thần Kỳ</h4>
+                                    <p>Giải các câu đố toán học hấp dẫn</p>
+                                    <div class="game-meta">
+                                        <span class="game-difficulty medium">Trung bình</span>
+                                        <span class="game-time">5 phút</span>
+                                    </div>
+                                    <div class="game-stats">
+                                        <small><i class="fas fa-brain"></i> Logic • 💡 Tư duy</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="game-card" data-game="treasure_hunt">
+                                <div class="game-image-container">
+                                    <div class="game-main-image">🏴‍☠️</div>
+                                </div>
+                                <div class="game-content">
+                                    <h4>🏴‍☠️ Săn Kho Báu</h4>
+                                    <p>Giải mã để tìm kho báu ẩn giấu</p>
+                                    <div class="game-meta">
+                                        <span class="game-difficulty hard">Khó</span>
+                                        <span class="game-time">10 phút</span>
+                                    </div>
+                                    <div class="game-stats">
+                                        <small><i class="fas fa-search"></i> Khám phá • 🔍 Giải đố</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="game-card" data-game="memory_math">
+                                <div class="game-image-container">
+                                    <div class="game-main-image">🧠</div>
+                                </div>
+                                <div class="game-content">
+                                    <h4>🧠 Trí nhớ Toán học</h4>
+                                    <p>Ghép cặp bài toán và đáp án đúng</p>
+                                    <div class="game-meta">
+                                        <span class="game-difficulty medium">Trung bình</span>
+                                        <span class="game-time">5 phút</span>
+                                    </div>
+                                    <div class="game-stats">
+                                        <small><i class="fas fa-memory"></i> Ghi nhớ • ⚡ Phản xạ</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="game-container hidden" id="gameContainer">
+                            <!-- Game content will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Tab -->
+            <div id="progress" class="tab-pane">
+                <div class="container">
+                    <div class="page-header">
+                        <h1><i class="fas fa-chart-line"></i> Tiến độ học tập</h1>
+                        <p>Theo dõi sự tiến bộ và nhận phân tích từ AI</p>
+                    </div>
+                    
+                    <div class="progress-overview">
+                        <div class="progress-stats">
+                            <div class="progress-stat">
+                                <h4>Tổng điểm</h4>
+                                <span id="progressTotalScore">0</span>
+                            </div>
+                            <div class="progress-stat">
+                                <h4>Bài đã làm</h4>
+                                <span id="progressTotalExercises">0</span>
+                            </div>
+                            <div class="progress-stat">
+                                <h4>Tỷ lệ đúng</h4>
+                                <span id="progressAccuracy">0%</span>
+                            </div>
+                            <div class="progress-stat">
+                                <h4>Thời gian học</h4>
+                                <span id="progressStudyTime">0 phút</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="progress-content">
+                        <div class="progress-charts">
+                            <div class="chart-container">
+                                <h4>Tiến độ theo ngày</h4>
+                                <canvas id="progressChart"></canvas>
+                            </div>
+                            <div class="chart-container">
+                                <h4>Thành thạo chủ đề</h4>
+                                <canvas id="topicChart"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="ai-analysis-section">
+                            <h3><i class="fas fa-robot"></i> Phân tích từ AI Tutor</h3>
+                            <div class="ai-analysis-card">
+                                <div id="aiAnalysisContent">
+                                    <p>Hãy hoàn thành một số bài tập để nhận phân tích từ AI!</p>
+                                </div>
+                                <button id="refreshAnalysis" class="btn-primary">
+                                    <i class="fas fa-sync"></i> Cập nhật phân tích
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Leaderboard Tab -->
+            <div id="leaderboard" class="tab-pane">
+                <div class="container">
+                    <div class="page-header">
+                        <h1><i class="fas fa-trophy"></i> Bảng xếp hạng</h1>
+                        <p>Xem thành tích của các học sinh xuất sắc</p>
+                    </div>
+                    
+                    <div class="leaderboard-container">
+                        <div class="leaderboard-header">
+                            <div class="leaderboard-filters">
+                                <button class="filter-btn active" data-filter="all">Tất cả</button>
+                                <button class="filter-btn" data-filter="week">Tuần này</button>
+                                <button class="filter-btn" data-filter="month">Tháng này</button>
+                            </div>
+                            <div class="leaderboard-info">
+                                <i class="fas fa-info-circle"></i>
+                                <span>Điểm số được tính dựa trên bài tập và trò chơi</span>
+                            </div>
+                        </div>
+                        
+                        <div class="leaderboard-content">
+                            <table class="leaderboard-table">
+                                <thead>
+                                    <tr>
+                                        <th>Hạng</th>
+                                        <th>Tên</th>
+                                        <th>Điểm</th>
+                                        <th>Số game</th>
+                                        <th>Thành tích</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="leaderboardBody">
+                                    <!-- Leaderboard data will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="leaderboard-footer">
+                            <p>🎯 <strong>Lời khuyên:</strong> Luyện tập đều đặn mỗi ngày để cải thiện điểm số!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mock Test Tab -->
+            <div id="mocktest" class="tab-pane">
+                <div class="container">
+                    <div class="page-header">
+                        <h1><i class="fas fa-file-alt"></i> Thi thử Toán lớp 3</h1>
+                        <p>Làm bài thi thử với câu hỏi được AI tạo ra ngẫu nhiên</p>
+                    </div>
+                    
+                    <!-- Test Setup -->
+                    <div class="mock-test-setup" id="mockTestSetup">
+                        <div class="quick-test-options">
+                            <h3>🚀 Thi thử nhanh</h3>
+                            <div class="quick-test-grid">
+                                <button class="quick-test-btn" data-test-type="quick_5">
+                                    <div class="test-icon">⚡</div>
+                                    <h4>5 câu - Nhanh</h4>
+                                    <p>Kiểm tra nhanh kiến thức</p>
+                                    <small>≈ 8 phút</small>
+                                </button>
+                                <button class="quick-test-btn" data-test-type="standard_10">
+                                    <div class="test-icon">📊</div>
+                                    <h4>10 câu - Tiêu chuẩn</h4>
+                                    <p>Đánh giá toàn diện</p>
+                                    <small>≈ 15 phút</small>
+                                </button>
+                                <button class="quick-test-btn" data-test-type="full_20">
+                                    <div class="test-icon">🎯</div>
+                                    <h4>20 câu - Đầy đủ</h4>
+                                    <p>Kiểm tra chuyên sâu</p>
+                                    <small>≈ 30 phút</small>
+                                </button>
+                                <button class="quick-test-btn" data-test-type="challenge_15">
+                                    <div class="test-icon">🏆</div>
+                                    <h4>15 câu - Thử thách</h4>
+                                    <p>Kiểm tra nâng cao</p>
+                                    <small>≈ 23 phút</small>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="custom-test-options">
+                            <h3>🎛️ Tùy chỉnh đề thi</h3>
+                            <div class="test-settings">
+                                <div class="setting-group">
+                                    <label for="questionCount">Số câu hỏi:</label>
+                                    <select id="questionCount">
+                                        <option value="5">5 câu</option>
+                                        <option value="10" selected>10 câu</option>
+                                        <option value="15">15 câu</option>
+                                        <option value="20">20 câu</option>
+                                        <option value="25">25 câu</option>
+                                        <option value="30">30 câu</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="setting-group">
+                                    <label for="testDifficulty">Độ khó:</label>
+                                    <select id="testDifficulty">
+                                        <option value="easy">Dễ</option>
+                                        <option value="medium" selected>Trung bình</option>
+                                        <option value="hard">Khó</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="setting-group">
+                                    <label for="testTopics">Chủ đề:</label>
+                                    <select id="testTopics" multiple>
+                                        <option value="numbers" selected>Số học</option>
+                                        <option value="word_problems" selected>Giải toán có lời văn</option>
+                                        <option value="geometry" selected>Hình học</option>
+                                        <option value="measurement" selected>Đo lường</option>
+                                    </select>
+                                    <small>Giữ Ctrl để chọn nhiều chủ đề</small>
+                                </div>
+                            </div>
+                            
+                            <div class="test-actions">
+                                <button id="startMockTest" class="btn-primary btn-large">
+                                    <i class="fas fa-play"></i> Bắt đầu thi thử
+                                </button>
+                                <button id="viewTestHistory" class="btn-secondary">
+                                    <i class="fas fa-history"></i> Xem lịch sử
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Test Interface -->
+                    <div class="mock-test-interface hidden" id="mockTestInterface">
+                        <div class="test-header">
+                            <div class="test-info">
+                                <h3 id="testTitle">Đang tải...</h3>
+                                <p id="testDescription">Chuẩn bị bắt đầu</p>
+                            </div>
+                            <div class="test-controls">
+                                <div class="timer-container">
+                                    <i class="fas fa-clock"></i>
+                                    <span id="testTimer">00:00</span>
+                                </div>
+                                <div class="progress-container">
+                                    <div class="progress-bar">
+                                        <div class="progress" id="testProgress"></div>
+                                    </div>
+                                    <span id="progressText">0/0 câu</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="test-content">
+                            <div class="question-header">
+                                <div class="question-meta">
+                                    <span class="question-number">Câu <span id="currentQuestionNumber">1</span>/<span id="totalQuestions">0</span></span>
+                                    <span class="topic-badge" id="testTopic">Số học</span>
+                                    <span class="difficulty-badge" id="testDifficultyBadge">Trung bình</span>
+                                </div>
+                            </div>
+                            
+                            <div class="question-content">
+                                <div class="question-text" id="testQuestion">
+                                    Đang tải câu hỏi...
+                                </div>
+                                
+                                <div class="options-container" id="testOptions">
+                                    <!-- Options will be loaded here -->
+                                </div>
+                            </div>
+                            
+                            <div class="test-navigation">
+                                <button id="prevQuestion" class="btn-secondary" disabled>
+                                    <i class="fas fa-arrow-left"></i> Câu trước
+                                </button>
+                                <button id="nextQuestion" class="btn-primary">
+                                    Câu tiếp theo <i class="fas fa-arrow-right"></i>
+                                </button>
+                                <button id="submitTest" class="btn-success hidden">
+                                    <i class="fas fa-paper-plane"></i> Nộp bài
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Test Result -->
+                    <div class="test-result hidden" id="testResult">
+                        <div class="result-header">
+                            <div class="result-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <h2>Hoàn thành bài thi! 🎉</h2>
+                            <p>Đây là kết quả chi tiết của bạn</p>
+                        </div>
+                        
+                        <div class="result-stats">
+                            <div class="result-stat">
+                                <div class="stat-value" id="testScore">0</div>
+                                <div class="stat-label">Điểm số</div>
+                            </div>
+                            <div class="result-stat">
+                                <div class="stat-value" id="correctAnswers">0/0</div>
+                                <div class="stat-label">Số câu đúng</div>
+                            </div>
+                            <div class="result-stat">
+                                <div class="stat-value" id="testAccuracy">0%</div>
+                                <div class="stat-label">Độ chính xác</div>
+                            </div>
+                            <div class="result-stat">
+                                <div class="stat-value" id="testTimeSpent">00:00</div>
+                                <div class="stat-label">Thời gian</div>
+                            </div>
+                        </div>
+                        
+                        <div class="performance-level-container">
+                            <span class="level-label">Mức độ đánh giá:</span>
+                            <span class="level-value" id="performanceLevel">Đang tính...</span>
+                        </div>
+
+                        <div class="result-details-grid">
+                            <div class="detail-column">
+                                <div class="detail-section">
+                                    <h4>✅ Điểm mạnh</h4>
+                                    <ul id="strengthsList">
+                                        <!-- Strengths will be loaded here -->
+                                    </ul>
+                                </div>
+                                
+                                <div class="detail-section">
+                                    <h4>📝 Điểm cần cải thiện</h4>
+                                    <ul id="weaknessesList">
+                                        <!-- Weaknesses will be loaded here -->
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-column">
+                                <div class="detail-section">
+                                    <h4>💡 Khuyến nghị học tập</h4>
+                                    <ul id="recommendationsList">
+                                        <!-- Recommendations will be loaded here -->
+                                    </ul>
+                                </div>
+                                
+                                <div class="detail-section">
+                                    <h4>⏱ Đánh giá thời gian</h4>
+                                    <p id="timeEvaluation">Đang tính...</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="topic-breakdown">
+                            <h4>📊 Phân tích theo chủ đề</h4>
+                            <div class="topic-breakdown-content" id="topicBreakdown">
+                                <!-- Topic breakdown will be loaded here -->
+                            </div>
+                        </div>
+                        
+                        <div class="detailed-analysis">
+                            <h4>🧠 Phân tích chi tiết từ AI</h4>
+                            <div id="detailedAnalysis">
+                                <!-- Detailed analysis from AI will be loaded here -->
+                            </div>
+                        </div>
+                        
+                        <div class="result-actions">
+                            <button id="retryMockTest" class="btn-primary">
+                                <i class="fas fa-redo"></i> Làm bài khác
+                            </button>
+                            <button onclick="window.mathApp.switchTab('learn')" class="btn-secondary">
+                                <i class="fas fa-book"></i> Học tập ngay
+                            </button>
+                            <button id="viewTestHistory" class="btn-outline">
+                                <i class="fas fa-history"></i> Xem lịch sử
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Test History -->
+                    <div class="test-history hidden" id="testHistory">
+                        <div class="history-header">
+                            <h2><i class="fas fa-history"></i> Lịch sử thi thử</h2>
+                            <p>Theo dõi tiến bộ của bạn qua thời gian</p>
+                        </div>
+                        
+                        <div class="history-chart-container">
+                            <canvas id="historyChart"></canvas>
+                        </div>
+                        
+                        <div class="history-content" id="testHistoryContent">
+                            <!-- Test history will be loaded here -->
+                        </div>
+                        
+                        <div class="history-actions">
+                            <button id="backFromHistory" class="btn-primary">
+                                <i class="fas fa-arrow-left"></i> Quay lại
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- AI Chat Widget -->
+    <div id="aiChatWidget" class="ai-chat-widget">
+        <div class="chat-header">
+            <div class="chat-title">
+                <i class="fas fa-robot"></i>
+                <span>AI Tutor</span>
+            </div>
+            <div class="chat-actions">
+                <button id="minimizeChat" class="btn-icon">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button id="closeChat" class="btn-icon">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="chat-messages" id="chatMessages">
+            <div class="welcome-message">
+                <div class="message ai-message">
+                    <div class="message-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="message-content">
+                        <strong>Xin chào! Tôi là AI Tutor 🤖</strong>
+                        <p>Tôi có thể giúp em:</p>
+                        <ul>
+                            <li>📚 Giải thích bài toán</li>
+                            <li>💡 Đưa ra mẹo học tập</li>
+                            <li>🎯 Gợi ý bài tập phù hợp</li>
+                            <li>📝 Tạo đề thi thử</li>
+                            <li>📖 Kể chuyện toán học</li>
+                        </ul>
+                        <p>Hãy hỏi tôi bất cứ điều gì về Toán lớp 3!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="chat-input-container">
+            <div class="quick-questions">
+                <button class="quick-question" data-question="Giải thích phép nhân cho em">
+                    <i class="fas fa-times"></i> Phép nhân là gì?
+                </button>
+                <button class="quick-question" data-question="Mẹo học bảng cửu chương">
+                    <i class="fas fa-lightbulb"></i> Mẹo học cửu chương
+                </button>
+                <button class="quick-question" data-question="Tạo đề thi thử 5 câu">
+                    <i class="fas fa-file-alt"></i> Đề thi thử
+                </button>
+            </div>
+            <div class="chat-input-group">
+                <input type="text" id="chatInput" placeholder="Nhập câu hỏi của em...">
+                <button id="sendMessage" class="btn-primary">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <button id="openChat" class="ai-chat-button">
+        <i class="fas fa-robot"></i>
+        <span class="notification-dot"></span>
+    </button>
+
+    <script src="js/auth.js"></script>
+    <script src="js/audio-manager.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/games.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/ai.js"></script>
+    <script src="js/mocktest.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
