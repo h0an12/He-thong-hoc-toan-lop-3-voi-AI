@@ -147,7 +147,7 @@ LocalStorage	Client-side caching và session management
 📝 Báo cáo học tập chi tiết cho phụ huynh
 
 ## 🛠️ 3. Cấu trúc dự án
-text
+```text
 math-master/
 ├── 📁 backend/
 │   ├── app.py              # Flask server chính & API routes
@@ -182,9 +182,10 @@ math-master/
 ├── run.py                  # Application launcher
 ├── requirements.txt        # Python dependencies
 └── .env                    # Environment variables
+```
 ### Sơ đồ kiến trúc
 Hệ thống được xây dựng theo kiến trúc 3 tầng:
-text
+```text
 ┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
 │   FRONTEND      │    │    BACKEND       │    │   AI SERVICES   │
 │                 │    │                  │    │                 │
@@ -204,7 +205,7 @@ text
 │  - Session      │    │  - Progress      │    │  - (Future)     │
 │  - Cache        │    │  - Exercises     │    │                 │
 └─────────────────┘    └──────────────────┘    └─────────────────┘
-
+```
 ### Luồng dữ liệu chính:
 Người dùng tương tác với Frontend qua giao diện web
 
@@ -459,6 +460,7 @@ Nếu có bất kỳ thắc mắc hoặc cần hỗ trợ, vui lòng liên hệ:
 - 📧 Email: lebahoan1812@gmail.com
 
 © 2025 AIoTLab, Faculty of Information Technology, DaiNam University. All rights reserved.
+
 
 
 
