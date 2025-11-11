@@ -185,26 +185,43 @@ math-master/
 ### Sơ đồ kiến trúc
 Hệ thống được xây dựng theo kiến trúc 3 tầng:
 
-text
-┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
-│   FRONTEND      │    │    BACKEND       │    │   AI SERVICES   │
-│                 │    │                  │    │                 │
-│  HTML/CSS/JS    │◄──►│   Flask API      │◄──►│  Google Gemini  │
-│  - AuthManager  │    │  - Routes        │    │  - Explanations │
-│  - MathMasterApp│    │  - Database      │    │  - Exercises    │
-│  - GameManager  │    │  - AI Services   │    │  - Analysis     │
-│  - MockTest     │    │  - Models        │    │  - Chat         │
-│  - Charts       │    │                  │    │                 │
-└─────────────────┘    └──────────────────┘    └─────────────────┘
-         │                        │                        │
-         │                        │                        │
-         ▼                        ▼                        ▼
-┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
-│   BROWSER       │    │   JSON DB        │    │   EXTERNAL APIs │
-│  LocalStorage   │    │  - Users         │    │  - Gemini AI    │
-│  - Session      │    │  - Progress      │    │  - (Future)     │
-│  - Cache        │    │  - Exercises     │    │                 │
-└─────────────────┘    └──────────────────┘    └─────────────────┘
+graph TB
+    subgraph "FRONTEND"
+        A[HTML/CSS/JS]
+        B[AuthManager]
+        C[MathMasterApp]
+        D[GameManager]
+        E[MockTest]
+        F[Charts]
+    end
+    
+    subgraph "BACKEND"
+        G[Flask API]
+        H[Routes]
+        I[Database]
+        J[AI Services]
+        K[Models]
+    end
+    
+    subgraph "AI SERVICES"
+        L[Google Gemini]
+        M[Explanations]
+        N[Exercises]
+        O[Analysis]
+        P[Chat]
+    end
+    
+    subgraph "DATA STORAGE"
+        Q[BROWSER<br/>LocalStorage]
+        R[JSON DB<br/>Users/Progress/Exercises]
+        S[EXTERNAL APIs<br/>Gemini AI]
+    end
+    
+    A <--> G
+    G <--> L
+    B --> Q
+    H --> R
+    J --> S
 ### Luồng dữ liệu chính:
 Người dùng tương tác với Frontend qua giao diện web
 
@@ -459,6 +476,7 @@ Nếu có bất kỳ thắc mắc hoặc cần hỗ trợ, vui lòng liên hệ:
 - 📧 Email: lebahoan1812@gmail.com
 
 © 2025 AIoTLab, Faculty of Information Technology, DaiNam University. All rights reserved.
+
 
 
 
